@@ -1,19 +1,17 @@
 import React from 'react';
 import Routes from './routes';
-//import Nav from './Components/Nav';
+import Nav from './Components/nav';
 
-import Store from './store/store';
+import store from './store/store';
 import {Provider} from 'react-redux'
 
 function App() {
   
     return (
-      <Provider store={Store}>
+      <Provider store={store}>
       <div className='App'>
-        <header className='App-header'>
-
-        </header>
-        
+        <Nav/>
+        <Routes/>
       </div>
       </Provider>
     )

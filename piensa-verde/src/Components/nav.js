@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Link , withRouter} from 'react-router-dom';
 
-const Nav =(props) =>{
+const nav =(props) =>{
    return( 
     <nav>
         <ul>
@@ -16,4 +16,4 @@ const Nav =(props) =>{
    )
 }
 
-export default withRouter(Nav);
+export default withRouter(nav);
