@@ -1,7 +1,11 @@
-import firebase from 'firebase';
+import firebase from 'firebase-app';
+import 'firebase/auth';
+import 'firebase/firestore';
+import 'firebase/storage';
 
 
-const firebaseConfig = {
+
+const config = {
     apiKey: "api-key",
     authDomain: "project-id.firebaseapp.com",
     databaseURL: "https://project-id.firebaseio.com",
@@ -12,6 +16,31 @@ const firebaseConfig = {
   };
 
 
-const fire= firebase.initializeApp(firebaseConfig);
+class Firebase {
+    constructor(){
+      firebase.initializeApp(config);
+      this.auth =firebase.auth();
+      this.db= firebase.firestore();
+  
+    }
+    //Registro de usuario
+    async signIn(email, password){
+      const user = await firebase.auth().createUserWithEmailAndPassword(email, password)
+      .catch(error=>{
+         console.log(error);
+      })
 
-export default fire
+      return user
+    }
+    //Ingreso usuario
+    async login(email, password){
+      const user = await firebase.auth().signInWithEmailAndPassword(email, password)
+      .catch(error=>{
+        console.log(error);
+     })
+
+     return user
+    }
+} 
+
+export default new Firebase();
