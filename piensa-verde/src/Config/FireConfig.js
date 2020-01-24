@@ -41,6 +41,14 @@ class Firebase {
 
      return user
     }
+    //cerrar sesion
+    async logOut(){
+      const logout = await firebase.auth().signOut()
+      .catch(error =>{
+        console.log(error)
+      })
+      return logout
+    }
 } 
 
 export default new Firebase();

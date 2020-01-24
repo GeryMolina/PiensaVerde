@@ -1,5 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {Link , withRouter} from 'react-router-dom';
+import {useSelector, useDispatch} from 'react-redux'
+
+//import { logoutUser} from '../actions/logout'
+//import Firebase from '../Config/FireConfig'
 
 const nav =(props) =>{
    return( 
