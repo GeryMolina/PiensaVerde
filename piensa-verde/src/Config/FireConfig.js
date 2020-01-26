@@ -49,6 +49,12 @@ class Firebase {
       })
       return logout
     }
+
+  async getUserState(){
+    return new Promise(resolve=>{
+      this.auth.onAuthStateChanged(resolve);
+    })
+  }
 } 
 
 export default new Firebase();
