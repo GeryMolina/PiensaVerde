@@ -1,65 +1,73 @@
-import React, {useState, useEffect} from 'react';
-import {Link , withRouter} from 'react-router-dom';
-import {useSelector, useDispatch} from 'react-redux'
+import React,{ useEffect, useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { logoutUser} from '../actions/logout'
+import { logoutUser } from '../actions/logout';
 import Firebase from '../Config/FireConfig'
+//import logOutUser from '../reducers/logout';
 
-const nav =(props) =>{
-    
-    const loginSelector = useSelector((state) => state.logIn);
-    const signinSelector = useSelector((state) => state.signIn);
-    const {userState, setUserState}= useState(null);
+// props para checkear la 
+const Nav = (props) => {
+
+    // los nombres "logIn" y "signIn" salen de los reducers 
+    const logInSelector = useSelector((state) => state.logIn);
+    const signInSelector = useSelector((state) => state.signIn);
+    const [userState, setUserState] = useState(null);
     const dispatch = useDispatch();
-    const logoutUserAction = () => dispatch(logoutUser());
-
+    const logOutUserAction =() => dispatch(logoutUser());
 
     useEffect(() => {
-        Firebase.getUserState().then(user => { 
+        Firebase.getUserState().then(user => {
             setUserState(user);
-        })
+        });
+
     })
 
-    const logout = async()=>{
-        console.log('logout User');
+
+    const logout = async() => {
+        console.log('logout user');
         setUserState(null);
-        await logoutUserAction()
+        await logOutUserAction();
         //props.history.replace('/');
-
     }
-    
+
     let buttons;
-    if ((loginSelector.user && loginSelector.user.hasOwnProperty('user'))|| 
-    (signinSelector.user && signinSelector.user.hasOwnProperty('user')) ||
-    userState != null){
-        buttons= (
+    if ((logInSelector.user && logInSelector.user.hasOwnProperty('user')) || (signInSelector.user && 
+    signInSelector.user.hasOwnProperty('user')) || userState != null ) {
+        buttons = (
             <React.Fragment>
-                <li><Link to='/signin'>Registrarse</Link></li>
-                <li><Link to='/login'>Ingresar</Link></li>
+                <li>
+                <button className='logout' onClick={logout}>Logout</button>
+                </li>
             </React.Fragment>
         )
-    } else{
-        buttons= (
+    }else{
+        buttons = (
             <React.Fragment>
-                <li><button className='logout' onClick={logout}>Cerrar sesión</button></li>
+                <li><Link to='/signin'>Sign In</Link></li>
+                <li><Link to='/login'>Log In</Link></li>
             </React.Fragment>
+
         )
+
     }
+       
 
+    return(
+        <nav>
+            <ul>
+            <li><Link to='/'>React test</Link></li>
 
-   return( 
-    <nav>
-        <ul>
-            <li><Link to="/">ReactReduxFirebaseAuth</Link></li>
-        </ul>
-        <ul>
-            <li><Link to="/create">Nuevo Post</Link></li>
+            </ul>
+            <ul>
+            <li><Link to='/create'>new post</Link></li>
             {buttons}
-        </ul>
+            </ul>
+        </nav>
+
+    )
 
 
-    </nav>
-   )
 }
-
-export default withRouter(nav);
+ 
+export default withRouter(Nav);

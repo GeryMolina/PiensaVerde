@@ -1,5 +1,4 @@
 
-
 const createUser= (
     state={
         user:{}
@@ -11,4 +10,4 @@ const createUser= (
         return state
     }
 
-    export default createUser
+    export default createUser;

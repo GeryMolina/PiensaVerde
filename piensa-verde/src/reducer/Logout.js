@@ -1,12 +1,12 @@
-const logoutUser= (
-    state={
-        user:{}
+const logOutUser = (
+    state = {
+        user: {}
     },
     action) => {
         if(action.type === 'LOGOUT_USER'){
-            state= {...state, user: action.payload}
+            state={...state, user: action.payload}
         }
-        return state
-    }
+        return state;
+    };
 
-    export default logoutUser
+export default logOutUser;
