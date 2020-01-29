@@ -104,8 +104,8 @@ const config = {
     async updatePost(postid, postData){
         if(postData['cover']){
             const storageRef = firebase.storage().ref();
-            const storageChild = storageRef.child(post.cover.name);
-            const postCover =  await storageChild.put(post.cover);
+            const storageChild = storageRef.child(postData.cover.name);
+            const postCover =  await storageChild.put(postData.cover);
             const downloadURL = await storageChild.getDownloadURL();
             const fileRef = postCover.ref.location.path;
         
@@ -118,7 +118,7 @@ const config = {
                 title : postData.title,
                 content : postData.content,
                 cover : downloadURL,
-                fileRef: fileRef,
+                fileref: fileRef,
             }
 
             const post = await firebase.firestore().collection('posts').doc(postid)
@@ -139,9 +139,9 @@ const config = {
 
     }
 
-    async deletePost(postid, fileRef){
-        const storageRef= firebase.storage().ref;
-        await storageRef.child(fileRef).delete().catch(err => console.log(err))
+    async deletePost(postid, fileref){
+        const storageRef= firebase.storage().ref();
+        await storageRef.child(fileref).delete().catch(err => console.log(err))
 
         console.log('imagen borrada')
 
